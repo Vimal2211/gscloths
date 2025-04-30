@@ -1,0 +1,36 @@
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle mb-0">
+        <thead>
+            <tr>
+                @for (col of tableColumns; track col.field) {
+                <th>{{ col.field }}</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (data of tableData; track data) {
+            <tr>
+                @for (col of tableColumns; track col.header) {
+                <td>{{ data[col.header] }}</td>
+                }
+                <td class="text-center">
+                    <button class="btn btn-outline-info btn-sm me-1" (click)="editTableData(data ,'View')">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <!-- <app-common-button [btnType]="'button'" class="btn btn-outline-info btn-sm me-1" (click)="editTableData(data ,'View')">
+                        <i class="bi bi-eye"></i>
+                    </app-common-button> -->
+                    <button class="btn btn-outline-warning btn-sm me-1" (click)="editTableData(data ,'Edit')">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm" (click)="editTableData(data ,'Delete')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

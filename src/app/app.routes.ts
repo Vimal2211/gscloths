@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from '../components/userPages/home/home.component';
-import { CategoryComponent } from '../components/adminPages/category/category.component';
-import { LoginComponent } from '../components/authentication/login/login.component';
-import { ResetpasswordComponent } from '../components/authentication/resetpassword/resetpassword.component';
-import { UsermanagementComponent } from '../components/adminPages/usermanagement/usermanagement/usermanagement.component';
+import { CategoryComponent } from '../modules/components/adminPages/category/category.component';
+import { UsermanagementComponent } from '../modules/components/adminPages/usermanagement/usermanagement.component';
+import { LoginComponent } from '../modules/components/authentication/login/login.component';
+import { ResetpasswordComponent } from '../modules/components/authentication/resetpassword/resetpassword.component';
+import { HomeComponent } from '../modules/components/userPages/home/home.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },

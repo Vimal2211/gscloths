@@ -1,0 +1,9 @@
+node_modules
+# Angular cache files
+.angular/cache/
+# Compiled output (if built)
+dist/
+out-tsc/
+# IDE/editor specific
+.vscode/
+.idea/
