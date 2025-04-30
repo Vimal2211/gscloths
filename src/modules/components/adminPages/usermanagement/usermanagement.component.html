@@ -1,6 +1,7 @@
 <div class="container py-4">
   <!-- User List -->
-  <div *ngIf="!showForm" class="card shadow-sm">
+  @if(!showForm){
+  <div class="card shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h4 class="mb-0">User List</h4>
       <button class="buttonadd btn btn-primary" (click)="onAdd()">
@@ -16,9 +17,10 @@
     <app-common-table [tableData]="usersList" [tableColumns]="userColumns" [flag]="userFlag"
       (editData)="editOption($event)"></app-common-table>
   </div>
-
+  }
   <!-- User Form -->
-  <div *ngIf="showForm" class="card shadow-sm">
+  @if(showForm){
+  <div class="card shadow-sm">
     <div class="card-header">
       <h4 class="mb-0">{{ mode === 'add' ? 'Add' : mode === 'edit' ? 'Edit' : 'View' }} User</h4>
     </div>
@@ -41,12 +43,12 @@
             <input class="form-control" formControlName="email" [readonly]="mode === 'view'"
               placeholder="Enter email" />
           </div>
-
-          <div class="col-md-6" *ngIf="mode !== 'view'">
+          @if(mode !== 'view'){
+          <div class="col-md-6">
             <label class="form-label">Password</label>
             <input type="password" class="form-control" formControlName="password" placeholder="Enter password" />
           </div>
-
+          }
           <div class="col-md-6">
             <label class="form-label">Date of Birth</label>
             <input type="date" class="form-control" formControlName="dateOfBirth" [readonly]="mode === 'view'" />
@@ -70,10 +72,15 @@
         </div>
 
         <div class="d-flex justify-content-end mt-4">
-          <app-common-button [btnName]="'Save'" [btnType]="'submit'" *ngIf="mode !== 'view'" class="btn btn-success me-2"></app-common-button>
-          <app-common-button [btnName]="'Cancel'" [btnType]="'button'" (actionBtn)="onCancel($event)" class="btn btn-secondary"></app-common-button>
+          @if(mode !== 'view'){
+          <app-common-button [btnName]="'Save'" [btnType]="'submit'" [showLabel]="true"
+            class="btn btn-success me-2"></app-common-button>
+          }
+          <app-common-button [btnName]="'Cancel'" [btnType]="'button'" [showLabel]="true" (actionBtn)="onCancel($event)"
+            class="btn btn-secondary"></app-common-button>
         </div>
       </form>
     </div>
   </div>
+  }
 </div>

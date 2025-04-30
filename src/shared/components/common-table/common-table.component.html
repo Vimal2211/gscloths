@@ -14,18 +14,21 @@
                 <td>{{ data[col.header] }}</td>
                 }
                 <td class="text-center">
-                    <button class="btn btn-outline-info btn-sm me-1" (click)="editTableData(data ,'View')">
+                    <!-- <button class="btn btn-outline-info btn-sm me-1" (click)="editTableData(data ,'View')">
                         <i class="bi bi-eye"></i>
-                    </button>
-                    <!-- <app-common-button [btnType]="'button'" class="btn btn-outline-info btn-sm me-1" (click)="editTableData(data ,'View')">
+                    </button> -->
+                    <app-common-button [btnType]="'button'" [showLabel]="false" class="btn btn-outline-info btn-sm me-1 p-0"
+                        (click)="editTableData(data ,'View')">
                         <i class="bi bi-eye"></i>
-                    </app-common-button> -->
-                    <button class="btn btn-outline-warning btn-sm me-1" (click)="editTableData(data ,'Edit')">
+                    </app-common-button>
+                    <app-common-button [btnType]="'button'" [showLabel]="false" class="btn btn-outline-warning btn-sm me-1 p-0"
+                        (click)="editTableData(data ,'Edit')">
                         <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-outline-danger btn-sm" (click)="editTableData(data ,'Delete')">
+                    </app-common-button>
+                    <app-common-button [btnType]="'button'" [showLabel]="false" class="btn btn-outline-danger btn-sm p-0"
+                        (click)="editTableData(data ,'Delete')">
                         <i class="bi bi-trash"></i>
-                    </button>
+                    </app-common-button>
                 </td>
             </tr>
             }
