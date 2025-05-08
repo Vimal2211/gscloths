@@ -6,6 +6,7 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { interval, Subscription } from 'rxjs';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,7 @@ export class LoginComponent {
   private timerSubscription: Subscription | null = null;
   @ViewChildren('otp1, otp2, otp3, otp4, otp5, otp6') otpInputs!: QueryList<ElementRef>;
 
-  constructor(private fb: FormBuilder, private router: Router, private toast: ToastrService, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private router: Router, private toast: ToastrService, private http: HttpClient, private auth: AuthenticationService) {
     this.signupForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -113,11 +114,11 @@ export class LoginComponent {
         phoneNumber: this.signupForm.value.phoneNumber,
         email: this.signupForm.value.email,
         password: this.signupForm.value.password
-      };  
+      };
       // Call register API
       this.http.post<any>('http://localhost:5000/api/auth/register', formData).subscribe({
         next: (res) => {
-          const { email, phoneNumber } = formData;  
+          const { email, phoneNumber } = formData;
           // Call send OTP API
           this.http.post<any>('http://localhost:5000/api/auth/send-otp', { email, phoneNumber }).subscribe({
             next: () => {
@@ -150,7 +151,7 @@ export class LoginComponent {
 
   onSubmitOtp() {
     if (this.otpForm.valid) {
-      const otp = Object.values(this.otpForm.value).join('');  
+      const otp = Object.values(this.otpForm.value).join('');
       const payload = {
         name: this.signupForm.value.name,
         phoneNumber: this.signupForm.value.phoneNumber,
@@ -158,7 +159,7 @@ export class LoginComponent {
         password: this.signupForm.value.password,
         otp: otp
       };
-  
+
       this.http.post<any>('http://localhost:5000/api/auth/verify-otp', payload).subscribe({
         next: (res) => {
           this.toast.success('Registration Successful!');
@@ -174,12 +175,12 @@ export class LoginComponent {
           console.error('Verify OTP Error:', err);
         }
       });
-  
+
     } else {
       this.otpForm.markAllAsTouched();
     }
   }
-  
+
 
   resendOtp() {
     this.receivedOtp = '123456'; // Or generate a new one
@@ -193,17 +194,22 @@ export class LoginComponent {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
       };
-  
-      this.http.post<any>('http://localhost:5000/api/auth/login', payload).subscribe({
-        next: (res) => {
+
+      this.auth.login(payload).subscribe((res) => {
+        if (res.success === true || res.code === 200) {
+          console.log('res: ', res.result);
           this.toast.success(res.message);
-          this.loginForm.reset();
+          const role = res.result.role;
+
+        // Redirect based on role
+        if (role === 'admin') {
+          this.router.navigate(['/admin']);
+        } else if (role === 'user') {
+          this.router.navigate(['/user']);
+        }
+          // this.loginForm.reset();
           this.islogPasswordVisible = false;
-          this.router.navigateByUrl('');
-        },
-        error: (err) => {
-          this.toast.error(err.message);
-          console.error('Login Error:', err);
+          // this.router.navigateByUrl('');
         }
       });
     } else {
@@ -215,7 +221,7 @@ export class LoginComponent {
   onSubmitForgotPassword() {
     if (this.forgotPasswordForm.valid) {
       const payload = { email: this.forgotPasswordForm.value.femail };
-  
+
       this.http.post<any>('http://localhost:5000/api/auth/forgot-password', payload)
         .subscribe({
           next: (res) => {

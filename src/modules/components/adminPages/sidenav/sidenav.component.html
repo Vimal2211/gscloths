@@ -1,0 +1,104 @@
+<div class="app">
+    <div class="sidebar">
+      <div class="logo_content">
+        <div class="logo">
+          <i class="bx bxl-c-plus-plus"></i>
+          <div class="logo_name">Ekinoks</div>
+        </div>
+      </div>
+      <div class="navbar-seprate">
+        <div>
+          <i class="bx bx-menu" id="btn" (click)="showToggle()"></i>
+          <ul class="nav_list">
+            <li (click)="goToMenu('dash')" matTooltip="Dashboard" matTooltipPosition="right">
+              <a>
+                <i class="bx bx-grid-alt"></i>
+                <span class="links_name">Dashboard</span>
+              </a>
+              <span class="tooltip">Dashboard</span>
+            </li>
+            <li (click)="goToMenu('employee')" class="" matTooltip="User" matTooltipPosition="right" [matTooltipDisabled]="isOpen == true">
+              <a>
+                <i class="bx bx-user"></i>
+                <span   class="links_name">User</span>
+              </a>
+              <span class="tooltip">User</span>
+            </li>
+            <li>
+              <a href="#">
+                <i class="bx bx-chat"></i>
+                <span class="links_name">Messages</span>
+              </a>
+              <span class="tooltip">Messages</span>
+            </li>
+            <li>
+              <a href="#">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="links_name">Analytics</span>
+              </a>
+              <span class="tooltip">Analytics</span>
+            </li>
+            <li>
+              <a href="#">
+                <i class="bx bx-folder"></i>
+                <span class="links_name">File Manager</span>
+              </a>
+              <span class="tooltip">File Manager</span>
+            </li>
+            <li>
+              <a href="#">
+                <i class="bx bx-cart-alt"></i>
+                <span class="links_name">Order</span>
+              </a>
+              <span class="tooltip">Order</span>
+            </li>
+            <li>
+              <a href="#">
+                <i class="bx bx-heart"></i>
+                <span class="links_name">Saved</span>
+              </a>
+              <span class="tooltip">Saved</span>
+            </li>
+            <li>
+              <a href="#">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Setting</span>
+              </a>
+              <span class="tooltip">Setting</span>
+            </li>
+          </ul>
+        </div>
+        <div class="profile_content">
+          <div class="profile">
+            <div class="profile_details">
+              <img src="https://lh3.googleusercontent.com/a-/AOh14GjvKOdrR_Z-N4oaIqPg10NRav_6D9tiKWHNFXXftQ=s288-p-rw-no"
+                alt="">
+              <div class="name_job">
+                <div class="name">Serif Sadi Senkule</div>
+                <div class="job">Software Developer</div>
+              </div>
+            </div>
+            <i class="bx bx-log-out" id="log_out"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+    <!-- <div class="page">
+      <div class="top-nav">
+        <a href="#" class="top-nav-item no-hover">Page Title</a>
+        <a href="#" class="top-nav-item">Page Link</a>
+        <a href="#" class="top-nav-item">Page Link</a>
+        <a href="#" class="top-nav-item">Page Link</a>
+      </div>
+      <div class="page-content">
+  
+      </div>
+    </div> -->
+  
+    <div class="home_content">
+      <router-outlet></router-outlet>
+  
+    </div>
+  </div>
