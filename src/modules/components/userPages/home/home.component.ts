@@ -64,4 +64,38 @@ export class HomeComponent implements OnInit {
   toggleCart() {
     this.isCartOpen = !this.isCartOpen;
   }
+
+  products = [
+    {
+      name: 'Kids T-shirts',
+      price: 450,
+      image: '../../../../assets/images/Products/t-shirt.avif',
+      currency: 'INR'
+    },
+
+    {
+      name: 'Baby Shirt',
+      price: 599,
+      image: '../../../../assets/images/Products/1 (2).avif',
+      currency: 'INR'
+    },
+    {
+      name: 'Shirt',
+      price: 999,
+      image: '../../../../assets/images/Products/1 (1).avif',
+      currency: 'INR'
+    },
+    {
+      name: 'T-Shirt',
+      price: 399,
+      image: '../../../../assets/images/Products/2 (1).avif',
+      currency: 'INR'
+    },
+    {
+      name: 'Baby T-Shirt',
+      price: 599,
+      image: '../../../../assets/images/Products/2 (2).avif',
+      currency: 'INR'
+    }
+  ];
 }
