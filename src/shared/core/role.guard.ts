@@ -8,9 +8,13 @@ export class RoleGuard implements CanActivate {
 
     constructor(private auth: AuthenticationService, private router: Router) { }
 
-    canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): boolean {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        if (typeof window === 'undefined') {
+            return false;
+        }
+
+        const roles = route.data['roles'] as string[];
         const user = this.auth.getCurrentUser();
-        const roles = route.data['roles'] as Array<string>;
         if (user && roles.includes(user.role)) {
             return true;
         }

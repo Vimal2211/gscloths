@@ -1,6 +1,8 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import * as AOS from 'aos';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +16,18 @@ export class HomeComponent implements OnInit {
   isCartOpen: boolean = false
   cartCount = 0;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,
+   private auth: AuthenticationService,
+   private router:Router
+  ) { }
 
   ngOnInit() {
+    const user = this.auth.getCurrentUser();
+    if (user?.role === 'admin') {
+      this.router.navigate(['/admin']);
+    } else if (user?.role === 'user') {
+      this.router.navigate(['/user']);
+    }
     if (isPlatformBrowser(this.platformId)) {
       AOS.init({ disable: 'mobile', duration: 1200, });
       AOS.refresh();
